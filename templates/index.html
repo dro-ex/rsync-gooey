@@ -21,7 +21,9 @@
     <rsync-task-list></rsync-task-list>
     <rsync-task-form></rsync-task-form>
   </main>
-  <script type="module" src="static/rsync-task-components.js" defer></script>
+  <!-- Load web components first -->
+  <script src="static/rsync-task-components.js"></script>
+  <!-- Theme script -->
   <script>
   (function() {
     const selector = document.getElementById('theme-selector');
