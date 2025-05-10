@@ -9,11 +9,31 @@
 <body>
   <header>
     <h1>Rsync Gooey - Tasks</h1>
+    <div id="theme-selector-container">
+      <label for="theme-selector">Theme:</label>
+      <select id="theme-selector">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
   </header>
   <main>
     <rsync-task-list></rsync-task-list>
     <rsync-task-form></rsync-task-form>
   </main>
   <script src="static/rsync-task-components.js"></script>
+  <script>
+  (function() {
+    const selector = document.getElementById('theme-selector');
+    const saved = localStorage.getItem('theme') || 'light';
+    document.documentElement.classList.add(saved);
+    selector.value = saved;
+    selector.addEventListener('change', function() {
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(this.value);
+      localStorage.setItem('theme', this.value);
+    });
+  })();
+  </script>
 </body>
 </html>
