@@ -1,21 +1,26 @@
 /* Theme variables */
+
+/* ensure custom elements display properly */
+rsync-task-list, rsync-task-form {
+  display: block;
+}
 :root.light {
   --bg-color: #f9f9f9;
-  --text-color: #000000;
-  --table-bg: #ffffff;
-  --th-bg: #eeeeee;
-  --border-color: #cccccc;
+  --text-color: #000;
+  --table-bg: #fff;
+  --th-bg: #eee;
+  --border-color: #ccc;
   --button-bg: #0074D9;
-  --button-text: #ffffff;
+  --button-text: #fff;
 }
 :root.dark {
   --bg-color: #2c2c2c;
-  --text-color: #eeeeee;
-  --table-bg: #333333;
-  --th-bg: #444444;
-  --border-color: #555555;
+  --text-color: #eee;
+  --table-bg: #333;
+  --th-bg: #444;
+  --border-color: #555;
   --button-bg: #1e88e5;
-  --button-text: #ffffff;
+  --button-text: #fff;
 }
 
 body {
@@ -44,8 +49,7 @@ main {
   margin: auto;
 }
 
-/* add spacing between task list and form */
+/* spacing below task list */
 rsync-task-list {
   display: block;
   margin-bottom: 2em;
-}
