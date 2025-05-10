@@ -1,12 +1,43 @@
+/* Theme variables */
+:root.light {
+  --bg-color: #f9f9f9;
+  --text-color: #000000;
+  --table-bg: #ffffff;
+  --th-bg: #eeeeee;
+  --border-color: #cccccc;
+  --button-bg: #0074D9;
+  --button-text: #ffffff;
+}
+:root.dark {
+  --bg-color: #2c2c2c;
+  --text-color: #eeeeee;
+  --table-bg: #333333;
+  --th-bg: #444444;
+  --border-color: #555555;
+  --button-bg: #1e88e5;
+  --button-text: #ffffff;
+}
+
 body {
   font-family: system-ui, sans-serif;
   margin: 0;
   padding: 0.5em;
-  background: #f9f9f9;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 header {
+  position: relative;
   text-align: center;
   margin-bottom: 1em;
+}
+#theme-selector-container {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+}
+#theme-selector {
+  padding: 0.2em;
+  margin-left: 0.3em;
 }
 main {
   max-width: 800px;
@@ -17,4 +48,3 @@ main {
 rsync-task-list {
   display: block;
   margin-bottom: 2em;
-}
