@@ -124,16 +124,16 @@ class RsyncTaskForm extends HTMLElement {
         <input name="src" placeholder="Source Path" required>
         <input name="dest" placeholder="Destination Path" required>
         <div id="flags">
-          <label><input type="checkbox" name="flags" value="-a"> Archive (-a)</label>
-          <label><input type="checkbox" name="flags" value="-r"> Recursive (-r)</label>
-          <label><input type="checkbox" name="flags" value="-t"> Preserve Times (-t)</label>
-          <label><input type="checkbox" name="flags" value="-z"> Compress (-z)</label>
-          <label><input type="checkbox" name="flags" value="-u"> Update (-u)</label>
-          <label><input type="checkbox" name="flags" value="-v"> Verbose (-v)</label>
-          <label><input type="checkbox" name="flags" value="--delete"> Delete (--delete)</label>
-          <label><input type="checkbox" name="flags" value="--progress"> Progress (--progress)</label>
-          <label><input type="checkbox" name="flags" value="--stats"> Stats (--stats)</label>
-          <label><input type="checkbox" name="flags" value="--dry-run"> Dry Run (--dry-run)</label>
+          <label><input type="checkbox" name="flags" value="-a"> Archive</label>
+          <label><input type="checkbox" name="flags" value="-r"> Recursive</label>
+          <label><input type="checkbox" name="flags" value="-t"> Preserve Times</label>
+          <label><input type="checkbox" name="flags" value="-z"> Compress</label>
+          <label><input type="checkbox" name="flags" value="-u"> Update</label>
+          <label><input type="checkbox" name="flags" value="-v"> Verbose</label>
+          <label><input type="checkbox" name="flags" value="--delete"> Delete</label>
+          <label><input type="checkbox" name="flags" value="--progress"> Progress</label>
+          <label><input type="checkbox" name="flags" value="--stats"> Stats</label>
+          <label><input type="checkbox" name="flags" value="--dry-run"> Dry Run</label>
         </div>
         <button type="submit">${btnText}</button>
       </form>
