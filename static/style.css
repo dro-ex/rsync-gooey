@@ -12,3 +12,9 @@ main {
   max-width: 800px;
   margin: auto;
 }
+
+/* add spacing between task list and form */
+rsync-task-list {
+  display: block;
+  margin-bottom: 2em;
+}
