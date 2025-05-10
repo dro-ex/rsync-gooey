@@ -1,7 +1,4 @@
-// static/rsync-task-components.js
-
 window.addEventListener('DOMContentLoaded', () => {
-  // Populate flags into the #flags container
   const container = document.getElementById('flags');
   const flags = [
     { key: '-a', label: 'Archive' },
@@ -17,23 +14,20 @@ window.addEventListener('DOMContentLoaded', () => {
   ];
   container.innerHTML = '';
   flags.forEach(f => {
-    const label = document.createElement('label');
-    label.className = 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect';
-    label.innerHTML = `
-      <input type="checkbox"
-             class="mdl-checkbox__input"
-             name="flags"
-             value="${f.key}">
+    const lbl = document.createElement('label');
+    lbl.className = 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect';
+    lbl.innerHTML = `
+      <input type="checkbox" class="mdl-checkbox__input" name="flags" value="${f.key}">
       <span class="mdl-checkbox__label">${f.label}</span>
     `;
-    container.appendChild(label);
-    componentHandler && componentHandler.upgradeElement(label);
+    container.appendChild(lbl);
+    componentHandler && componentHandler.upgradeElement(lbl);
   });
 
-  // Load existing tasks into the table
+  // Load tasks
   loadTasks();
 
-  // Handle form submission via AJAX
+  // Form submit
   const form = document.getElementById('taskForm');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -41,22 +35,17 @@ window.addEventListener('DOMContentLoaded', () => {
       name: form.name.value,
       src: form.src.value,
       dest: form.dest.value,
-      flags: Array.from(container.querySelectorAll('input[name="flags"]:checked'))
-        .map(cb => cb.value)
+      flags: Array.from(container.querySelectorAll('input[name="flags"]:checked')).map(cb=>cb.value)
     };
-    await fetch('/api/tasks', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
+    const method = editingId ? 'PUT' : 'POST';
+    const url = editingId ? `/api/tasks/${editingId}` : '/api/tasks';
+    await fetch(url, { method, headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(data) });
+    document.getElementById('taskDialog').close();
     form.reset();
-    // Clear checkboxes
-    container.querySelectorAll('input[name="flags"]').forEach(cb => cb.checked = false);
     loadTasks();
   });
 });
 
-// Fetch tasks and render rows
 async function loadTasks() {
   const res = await fetch('/api/tasks');
   const tasks = await res.json();
@@ -70,19 +59,29 @@ async function loadTasks() {
       <td class="mdl-data-table__cell--non-numeric">${task.dest}</td>
       <td>${(task.flags||[]).join(' ')}</td>
       <td>
-        <button class="mdl-button mdl-js-button mdl-button--icon delete" data-id="${task.id}">
-          <i class="material-icons">delete</i>
-        </button>
+        <button class="mdl-button mdl-js-button mdl-button--icon edit" data-id="${task.id}"><i class="material-icons">edit</i></button>
+        <button class="mdl-button mdl-js-button mdl-button--icon delete" data-id="${task.id}"><i class="material-icons">delete</i></button>
       </td>
     `;
     tbody.appendChild(tr);
-    componentHandler && componentHandler.upgradeElement(tr.querySelector('button'));
+    componentHandler && componentHandler.upgradeElement(tr.querySelectorAll('button'));
   });
-  // Attach delete handlers
+  document.querySelectorAll('.edit').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      editingId = btn.dataset.id;
+      const task = await (await fetch(`/api/tasks/${editingId}`)).json();
+      const form = document.getElementById('taskForm');
+      form.name.value = task.name;
+      form.src.value = task.src;
+      form.dest.value = task.dest;
+      document.getElementById('flags').querySelectorAll('input').forEach(cb => cb.checked = task.flags.includes(cb.value));
+      document.getElementById('taskDialog').showModal();
+    });
+  });
   document.querySelectorAll('.delete').forEach(btn => {
     btn.addEventListener('click', async () => {
       if (confirm('Delete this task?')) {
-        await fetch(`/api/tasks/${btn.dataset.id}`, { method: 'DELETE' });
+        await fetch(`/api/tasks/${btn.dataset.id}`, { method:'DELETE' });
         loadTasks();
       }
     });
