@@ -1,55 +1,22 @@
-/* ensure custom elements display properly */
-rsync-task-list, rsync-task-form {
-  display: block;
+body.light {
+  background: #fafafa;
+  color: #212121;
 }
-
-/* Theme variables */
-:root.light {
-  --bg-color: #f9f9f9;
-  --text-color: #000;
-  --table-bg: #fff;
-  --th-bg: #eee;
-  --border-color: #ccc;
-  --button-bg: #0074D9;
-  --button-text: #fff;
-}
-:root.dark {
-  --bg-color: #2c2c2c;
-  --text-color: #eee;
-  --table-bg: #333;
-  --th-bg: #444;
-  --border-color: #555;
-  --button-bg: #1e88e5;
-  --button-text: #fff;
-}
-
-body {
-  font-family: system-ui, sans-serif;
-  margin: 0;
-  padding: 0.5em;
-  background: var(--bg-color);
-  color: var(--text-color);
-}
-header {
-  position: relative;
-  text-align: center;
-  margin-bottom: 1em;
+body.dark {
+  background: #303030;
+  color: #f5f5f5;
 }
 #theme-selector-container {
-  position: absolute;
-  top: 0.5em;
-  right: 0.5em;
+  margin-left: auto;
 }
-#theme-selector {
-  padding: 0.2em;
-  margin-left: 0.3em;
+#flags {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5em;
+  margin-bottom: 1em;
 }
-main {
-  max-width: 800px;
-  margin: auto;
-}
-
-/* spacing below task list */
-rsync-task-list {
-  margin-bottom: 2em;
+#flags label {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
