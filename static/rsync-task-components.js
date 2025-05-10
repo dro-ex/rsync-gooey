@@ -10,10 +10,19 @@ class RsyncTaskList extends HTMLElement {
   render() {
     this.shadowRoot.innerHTML = `
       <style>
-        table { width:100%; border-collapse: collapse; background: white; }
-        th, td { padding: 0.5em; border: 1px solid #ccc; text-align: left; }
-        th { background: #eee; }
-        button { padding: 0.2em 0.5em; margin: 0 0.2em; font-size: 0.9em; }
+        table { width:100%; border-collapse: collapse;
+                background: var(--table-bg); }
+        th, td { padding: 0.5em;
+                 border: 1px solid var(--border-color);
+                 text-align: left; }
+        th { background: var(--th-bg); }
+        button { padding: 0.2em 0.5em;
+                 margin: 0 0.2em;
+                 font-size: 0.9em;
+                 background: var(--button-bg);
+                 color: var(--button-text);
+                 border: none;
+                 cursor: pointer; }
       </style>
       <table>
         <thead>
@@ -76,11 +85,20 @@ class RsyncTaskForm extends HTMLElement {
     const btnText = this.editing ? 'Update Task' : 'Add Task';
     this.shadowRoot.innerHTML = `
       <style>
-        form { display: flex; flex-wrap: wrap; gap: 0.5em; margin-top: 1em; }
-        input { flex: 1; padding: 0.5em; border: 1px solid #ccc; }
+        form { display: flex; flex-wrap: wrap;
+               gap: 0.5em; margin-top: 1em; }
+        input { flex: 1; padding: 0.5em;
+                border: 1px solid var(--border-color);
+                background: var(--table-bg);
+                color: var(--text-color);
+        }
         #flags { flex-basis: 100%; }
         label { margin-right: 0.5em; }
-        button { padding: 0.5em 1em; background: #0074D9; color: white; border: none; cursor: pointer; }
+        button { padding: 0.5em 1em;
+                 background: var(--button-bg);
+                 color: var(--button-text);
+                 border: none;
+                 cursor: pointer; }
       </style>
       <form id="taskForm">
         <input name="name" placeholder="Task Name" required>
