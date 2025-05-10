@@ -12,6 +12,7 @@
 </head>
 <body class="light">
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <!-- Sidebar Drawer -->
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">rsync</span>
       <nav class="mdl-navigation">
@@ -20,19 +21,23 @@
         <a class="mdl-navigation__link" href="#" id="jobsLink">Jobs</a>
       </nav>
     </div>
+    <!-- Header with menu, title, theme toggle -->
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-layout__drawer-button">
+          <i class="material-icons">menu</i>
+        </button>
         <span class="mdl-layout-title">Rsync Gooey</span>
         <div class="mdl-layout-spacer"></div>
-        <!-- Theme toggle button -->
         <button id="themeToggleBtn" class="mdl-button mdl-js-button mdl-button--icon">
           <i id="themeIcon" class="material-icons">nightlight_round</i>
         </button>
       </div>
     </header>
+    <!-- Main Content -->
     <main class="mdl-layout__content">
       <div class="page-content mdl-grid">
-        <!-- Tasks table -->
+        <!-- Tasks Table -->
         <div class="mdl-cell mdl-cell--12-col">
           <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead>
@@ -47,7 +52,7 @@
             <tbody id="tasks"></tbody>
           </table>
         </div>
-        <!-- Add button aligned with table -->
+        <!-- Add Button under grid, left aligned -->
         <div class="mdl-cell mdl-cell--12-col">
           <button id="addTaskBtn" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
             <i class="material-icons">add</i>
@@ -57,7 +62,7 @@
     </main>
   </div>
 
-  <!-- Task dialog -->
+  <!-- Task Dialog -->
   <dialog id="taskDialog" class="mdl-dialog">
     <h4 class="mdl-dialog__title">Task</h4>
     <div class="mdl-dialog__content">
@@ -80,6 +85,7 @@
     </div>
   </dialog>
 
+  <!-- MDL JS -->
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script src="static/rsync-task-components.js"></script>
   <script>
