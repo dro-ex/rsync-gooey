@@ -87,11 +87,11 @@ class RsyncTaskForm extends HTMLElement {
         <input name="src" placeholder="Source Path" required>
         <input name="dest" placeholder="Destination Path" required>
         <div id="flags">
-          <label><input type="checkbox" name="flags" value="-a"> -a</label>
-          <label><input type="checkbox" name="flags" value="-z"> -z</label>
-          <label><input type="checkbox" name="flags" value="--delete"> --delete</label>
-          <label><input type="checkbox" name="flags" value="-u"> -u</label>
-          <label><input type="checkbox" name="flags" value="-v"> -v</label>
+          <label><input type="checkbox" name="flags" value="-a"> Archive (-a)</label>
+          <label><input type="checkbox" name="flags" value="-z"> Compress (-z)</label>
+          <label><input type="checkbox" name="flags" value="--delete"> Delete (--delete)</label>
+          <label><input type="checkbox" name="flags" value="-u"> Update (-u)</label>
+          <label><input type="checkbox" name="flags" value="-v"> Verbose (-v)</label>
         </div>
         <button type="submit">${btnText}</button>
       </form>
