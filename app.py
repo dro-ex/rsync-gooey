@@ -28,10 +28,6 @@ class Task(db.Model):
             'flags': self.flags.split(',') if self.flags else []
         }
 
-@app.before_first_request
-def init_db():
-    db.create_all()
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -78,4 +74,9 @@ def delete_task(task_id):
     return '', 204
 
 if __name__ == '__main__':
+    # make sure our tables exist before serving
+    with app.app_context():
+        db.create_all()
+
+    # start the server
     app.run(host='0.0.0.0', port=5000)
