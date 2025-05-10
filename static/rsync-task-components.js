@@ -101,7 +101,7 @@ class RsyncTaskForm extends HTMLElement {
         #flags {
           grid-column: 1 / -1;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          grid-template-columns: repeat(4, 1fr);
           gap: 0.5em;
           margin-bottom: 1em;
         }
