@@ -92,8 +92,16 @@ class RsyncTaskForm extends HTMLElement {
                 background: var(--table-bg);
                 color: var(--text-color);
         }
-        #flags { flex-basis: 100%; }
-        label { margin-right: 0.5em; }
+        #flags {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 0.5em;
+          margin-bottom: 1em;
+        }
+        label { display: flex;
+                align-items: center;
+                gap: 0.3em;
+        }
         button { padding: 0.5em 1em;
                  background: var(--button-bg);
                  color: var(--button-text);
@@ -106,10 +114,15 @@ class RsyncTaskForm extends HTMLElement {
         <input name="dest" placeholder="Destination Path" required>
         <div id="flags">
           <label><input type="checkbox" name="flags" value="-a"> Archive (-a)</label>
+          <label><input type="checkbox" name="flags" value="-r"> Recursive (-r)</label>
+          <label><input type="checkbox" name="flags" value="-t"> Preserve Times (-t)</label>
           <label><input type="checkbox" name="flags" value="-z"> Compress (-z)</label>
-          <label><input type="checkbox" name="flags" value="--delete"> Delete (--delete)</label>
           <label><input type="checkbox" name="flags" value="-u"> Update (-u)</label>
           <label><input type="checkbox" name="flags" value="-v"> Verbose (-v)</label>
+          <label><input type="checkbox" name="flags" value="--delete"> Delete (--delete)</label>
+          <label><input type="checkbox" name="flags" value="--progress"> Progress (--progress)</label>
+          <label><input type="checkbox" name="flags" value="--stats"> Stats (--stats)</label>
+          <label><input type="checkbox" name="flags" value="--dry-run"> Dry Run (--dry-run)</label>
         </div>
         <button type="submit">${btnText}</button>
       </form>
