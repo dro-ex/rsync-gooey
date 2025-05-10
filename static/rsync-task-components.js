@@ -85,28 +85,39 @@ class RsyncTaskForm extends HTMLElement {
     const btnText = this.editing ? 'Update Task' : 'Add Task';
     this.shadowRoot.innerHTML = `
       <style>
-        form { display: flex; flex-wrap: wrap;
-               gap: 0.5em; margin-top: 1em; }
-        input { flex: 1; padding: 0.5em;
-                border: 1px solid var(--border-color);
-                background: var(--table-bg);
-                color: var(--text-color);
+        form {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.5em;
+          margin-top: 1em;
+        }
+        form input {
+          width: 100%;
+          padding: 0.5em;
+          border: 1px solid var(--border-color);
+          background: var(--table-bg);
+          color: var(--text-color);
         }
         #flags {
+          grid-column: 1 / -1;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
           gap: 0.5em;
           margin-bottom: 1em;
         }
-        label { display: flex;
-                align-items: center;
-                gap: 0.3em;
+        label {
+          display: flex;
+          align-items: center;
+          gap: 0.3em;
         }
-        button { padding: 0.5em 1em;
-                 background: var(--button-bg);
-                 color: var(--button-text);
-                 border: none;
-                 cursor: pointer; }
+        button {
+          grid-column: 3 / 4;
+          padding: 0.5em 1em;
+          background: var(--button-bg);
+          color: var(--button-text);
+          border: none;
+          cursor: pointer;
+        }
       </style>
       <form id="taskForm">
         <input name="name" placeholder="Task Name" required>
@@ -163,13 +174,3 @@ class RsyncTaskForm extends HTMLElement {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
-      });
-    }
-    form.reset();
-    this.render();
-    document.querySelector('rsync-task-list').loadTasks();
-  }
-}
-
-customElements.define('rsync-task-list', RsyncTaskList);
-customElements.define('rsync-task-form', RsyncTaskForm);
