@@ -2,40 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rsync Gooey - Tasks</title>
+  <!-- Material Design Lite CSS -->
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
   <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-  <header>
-    <h1>Rsync Gooey - Tasks</h1>
-    <div id="theme-selector-container">
-      <label for="theme-selector">Theme:</label>
-      <select id="theme-selector">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </select>
-    </div>
-  </header>
-  <main>
-    <rsync-task-list></rsync-task-list>
-    <rsync-task-form></rsync-task-form>
-  </main>
-  <!-- Load web components first -->
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Rsync Gooey</span>
+        <div class="mdl-layout-spacer"></div>
+        <div id="theme-selector-container">
+          <select id="theme-selector" class="mdl-textfield__input">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+      </div>
+    </header>
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col">
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+              <thead>
+                <tr>
+                  <th class="mdl-data-table__cell--non-numeric">Name</th>
+                  <th class="mdl-data-table__cell--non-numeric">Source</th>
+                  <th class="mdl-data-table__cell--non-numeric">Destination</th>
+                  <th>Flags</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tasks"></tbody>
+            </table>
+          </div>
+          <div class="mdl-cell mdl-cell--12-col">
+            <form id="taskForm" class="mdl-grid">
+              <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" name="name" placeholder="Task Name" required>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" name="src" placeholder="Source Path" required>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" name="dest" placeholder="Destination Path" required>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col" id="flags"></div>
+              <div class="mdl-cell mdl-cell--12-col">
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Material Design Lite JS -->
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script src="static/rsync-task-components.js"></script>
-  <!-- Theme script -->
   <script>
-  (function() {
-    const selector = document.getElementById('theme-selector');
-    const saved = localStorage.getItem('theme') || 'light';
-    document.documentElement.classList.add(saved);
-    selector.value = saved;
-    selector.addEventListener('change', function() {
-      document.documentElement.classList.remove('light', 'dark');
-      document.documentElement.classList.add(this.value);
-      localStorage.setItem('theme', this.value);
-    });
-  })();
+    (function() {
+      const selector = document.getElementById('theme-selector');
+      const saved = localStorage.getItem('theme') || 'light';
+      document.body.classList.add(saved);
+      selector.value = saved;
+      selector.addEventListener('change', function() {
+        document.body.classList.toggle('dark', this.value === 'dark');
+        localStorage.setItem('theme', this.value);
+      });
+    })();
   </script>
-</body>
-</html>
