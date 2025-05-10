@@ -41,12 +41,7 @@ def get_tasks():
 def create_task():
     data = request.get_json()
     flags = ','.join(data.get('flags', []))
-    task = Task(
-        name=data['name'],
-        src=data['src'],
-        dest=data['dest'],
-        flags=flags
-    )
+    task = Task(name=data['name'], src=data['src'], dest=data['dest'], flags=flags)
     db.session.add(task)
     db.session.commit()
     return jsonify(task.to_dict()), 201
@@ -55,15 +50,16 @@ def create_task():
 def update_task(task_id):
     data = request.get_json()
     task = Task.query.get_or_404(task_id)
-    if 'name' in data:
-        task.name = data['name']
-    if 'src' in data:
-        task.src = data['src']
-    if 'dest' in data:
-        task.dest = data['dest']
-    if 'flags' in data:
-        task.flags = ','.join(data['flags'])
+    task.name = data.get('name', task.name)
+    task.src = data.get('src', task.src)
+    task.dest = data.get('dest', task.dest)
+    task.flags = ','.join(data.get('flags', task.flags.split(',')))
     db.session.commit()
+    return jsonify(task.to_dict())
+
+@app.route('/api/tasks/<int:task_id>', methods=['GET'])
+def get_task(task_id):
+    task = Task.query.get_or_404(task_id)
     return jsonify(task.to_dict())
 
 @app.route('/api/tasks/<int:task_id>', methods=['DELETE'])
