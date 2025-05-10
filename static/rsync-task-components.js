@@ -1,28 +1,26 @@
+console.log('rsync-task-components loaded');
+
 class RsyncTaskList extends HTMLElement {
   constructor() {
     super();
+    console.log('RsyncTaskList constructor');
     this.attachShadow({ mode: 'open' });
   }
   connectedCallback() {
+    console.log('RsyncTaskList connected');
     this.render();
     this.loadTasks();
   }
   render() {
     this.shadowRoot.innerHTML = `
       <style>
-        table { width:100%; border-collapse: collapse;
-                background: var(--table-bg); }
-        th, td { padding: 0.5em;
-                 border: 1px solid var(--border-color);
-                 text-align: left; }
+        table { width:100%; border-collapse: collapse; background: var(--table-bg); }
+        th, td { padding: 0.5em; border: 1px solid var(--border-color); text-align: left; }
         th { background: var(--th-bg); }
-        button { padding: 0.2em 0.5em;
-                 margin: 0 0.2em;
-                 font-size: 0.9em;
-                 background: var(--button-bg);
-                 color: var(--button-text);
-                 border: none;
-                 cursor: pointer; }
+        button {
+          padding: 0.2em 0.5em; margin: 0 0.2em; font-size: 0.9em;
+          background: var(--button-bg); color: var(--button-text); border: none; cursor: pointer;
+        }
       </style>
       <table>
         <thead>
@@ -73,10 +71,12 @@ class RsyncTaskList extends HTMLElement {
 class RsyncTaskForm extends HTMLElement {
   constructor() {
     super();
+    console.log('RsyncTaskForm constructor');
     this.attachShadow({ mode: 'open' });
     this.editing = null;
   }
   connectedCallback() {
+    console.log('RsyncTaskForm connected');
     this.render();
     this.shadowRoot.getElementById('taskForm')
       .addEventListener('submit', this.onSubmit.bind(this));
@@ -168,9 +168,19 @@ class RsyncTaskForm extends HTMLElement {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-      this.editing = null;
     } else {
       await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
+      });
+    }
+    form.reset();
+    this.editing = null;
+    this.render();
+    document.querySelector('rsync-task-list').loadTasks();
+  }
+}
+
+customElements.define('rsync-task-list', RsyncTaskList);
+customElements.define('rsync-task-form', RsyncTaskForm);
