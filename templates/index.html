@@ -13,13 +13,12 @@
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">Rsync Gooey</span>
         <div class="mdl-layout-spacer"></div>
+        <button id="themeToggleBtn" class="mdl-button mdl-js-button mdl-button--icon">
+          <i id="themeIcon" class="material-icons">nightlight_round</i>
+        </button>
         <button id="addTaskBtn" class="mdl-button mdl-js-button mdl-button--icon">
           <i class="material-icons">add</i>
         </button>
-        <select id="theme-selector" class="mdl-textfield__input">
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
       </div>
     </header>
     <main class="mdl-layout__content">
@@ -68,32 +67,22 @@
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script src="static/rsync-task-components.js"></script>
   <script>
-    // Theme toggle
-    (function() {
-      const selector = document.getElementById('theme-selector');
-      const saved = localStorage.getItem('theme') || 'light';
-      document.body.className = saved;
-      selector.value = saved;
-      selector.addEventListener('change', () => {
-        document.body.className = selector.value;
-        localStorage.setItem('theme', selector.value);
-      });
-    })();
-
-    // Dialog controls
-    const dialog = document.getElementById('taskDialog');
-    const addBtn = document.getElementById('addTaskBtn');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const saveBtn = document.getElementById('saveBtn');
-    let editingId = null;
-
-    addBtn.addEventListener('click', () => {
-      editingId = null;
-      document.getElementById('taskForm').reset();
-      dialog.showModal();
-    });
-    cancelBtn.addEventListener('click', () => dialog.close());
-    saveBtn.addEventListener('click', () => {
-      document.getElementById('taskForm').dispatchEvent(new Event('submit', {cancelable:true}));
+    // Theme toggle logic
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    function setTheme(theme) {
+      document.body.className = theme;
+      localStorage.setItem('theme', theme);
+      if (theme === 'light') {
+        themeIcon.textContent = 'nightlight_round';
+      } else {
+        themeIcon.textContent = 'wb_sunny';
+      }
+    }
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+    themeBtn.addEventListener('click', () => {
+      setTheme(document.body.className === 'light' ? 'dark' : 'light');
     });
   </script>
